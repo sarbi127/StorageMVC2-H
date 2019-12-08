@@ -72,7 +72,7 @@ namespace StorageMVC2.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> FilterName(string name)
+        public async Task<IActionResult> Dropdown(string name)
         {
             //DropdownViewModel model = new DropdownViewModel();
 

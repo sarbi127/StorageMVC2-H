@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-xs-4 col-xs-push-0">
                 <div class="form-group">
-                    <form asp-controller="Products" asp-action="FilterName" method="get">
+                    <form asp-controller="Products" asp-action="Dropdown" method="get">
                         <input id="name"  placeholder="..." name="name" type ="text" />
                       
                         @Html.DropDownListFor(c => c.SelectedProductName, this.ViewBag.Product as SelectList, "Select List", new { onchange = "this.form.submit();"})
