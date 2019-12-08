@@ -1,47 +1,61 @@
-﻿@model IEnumerable<StorageMVC2.Models.Product>
+﻿
+@model DropdownViewModel
 
 @{
-    ViewData["Title"] = "Filter";
+    ViewData["Title"] = "Dropdown";
 }
 
-<h1>Filter by Category</h1>
+<h2>@ViewBag.Title</h2>
 
-<form asp-controller="Products" asp-action="Filter" method="get">
+<section>
+    <div class="well bs-component">
+        <br />
 
-    <input type="text" placeholder="Search here..." autofocus class="form-control" name="category" />
-    <input type="submit" class="btn btn-primary" />
+        <div class="row">
+            <div class="col-xs-4 col-xs-push-0">
+                <div class="form-group">
+                    <form asp-controller="Products" asp-action="FilterName" method="get">
+                        <input id="name"  placeholder="..." name="name" type ="text" />
+                      
+                        @Html.DropDownListFor(c => c.SelectedProductName, this.ViewBag.Product as SelectList, "Select List", new { onchange = "this.form.submit();"})
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-</form>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+               Price
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Orderdate)
+               OrderDate
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+               Category
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Shelf)
+                shelf
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Count)
+               Count
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Description
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.product)
         {
             <tr>
                 <td>
@@ -65,12 +79,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+               
             </tr>
         }
     </tbody>
 </table>
+

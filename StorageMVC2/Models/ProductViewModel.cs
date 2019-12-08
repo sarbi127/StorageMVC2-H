@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace StorageMVC2.Models
 {
@@ -18,4 +19,6 @@ namespace StorageMVC2.Models
     {
         public IEnumerable<ProductViewModel> productViewModel { get; set; }
     }
+
+   
 }

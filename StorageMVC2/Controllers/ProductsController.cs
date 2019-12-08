@@ -31,7 +31,6 @@ namespace StorageMVC2.Controllers
 
         public IActionResult List()
         {
-
             var product = _productRepository.AllProduct.Select(a => new ProductViewModel
             {
                 Name = a.Name,
@@ -39,8 +38,7 @@ namespace StorageMVC2.Controllers
                 Count = a.Count,
                 InventoryValue = a.Count * a.Price             
 
-            });
-            
+            });          
             return View(product);
         }
 
@@ -52,6 +50,40 @@ namespace StorageMVC2.Controllers
                 model = model.Where(p => p.Category.Contains(category)).ToList();
             }
             return View(model);        
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Dropdown()
+        {
+            DropdownViewModel model = new DropdownViewModel();
+            model.product = _productRepository.AllProduct;
+            model.SelectedProductName = null;
+
+            SelectList lstobj = null;
+            var list = _productRepository.AllProduct.Select(P => new SelectListItem
+            {
+                Value = P.Name,
+                Text = P.Name,
+            });
+
+            lstobj = new SelectList(list, "Value", "Text");
+            this.ViewBag.Product = lstobj;
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FilterName(string name)
+        {
+            //DropdownViewModel model = new DropdownViewModel();
+
+            //model.product = _productRepository.AllProduct;
+            //model.SelectedProductName = name;
+            var model = await _context.Product.ToListAsync();
+            if (!string.IsNullOrEmpty(name))
+            {
+                model = model.Where(p => p.Category.Contains(name)).ToList();
+            }
+            return View(model);
         }
 
         // GET: Products/Details/5
