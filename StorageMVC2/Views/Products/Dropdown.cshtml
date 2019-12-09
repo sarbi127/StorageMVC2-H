@@ -10,15 +10,13 @@
 <section>
     <div class="well bs-component">
         <br />
-
         <div class="row">
             <div class="col-xs-4 col-xs-push-0">
                 <div class="form-group">
-                    <form asp-controller="Products" asp-action="Dropdown" method="get">
-                        <input id="name"  placeholder="..." name="name" type ="text" />
-                      
-                        @Html.DropDownListFor(c => c.SelectedProductName, this.ViewBag.Product as SelectList, "Select List", new { onchange = "this.form.submit();"})
-                        
+                    <form asp-controller="Products" asp-action="Dropdown" method="post">
+                        <input id="name" placeholder="..." name="name" type="text" />
+                        <select asp-for="SelectedProductName" asp-items="@Model.SelectList"><option value="">Select</option></select>
+                        <input type="submit" />
                     </form>
                 </div>
             </div>
@@ -27,61 +25,5 @@
 </section>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-               Price
-            </th>
-            <th>
-               OrderDate
-            </th>
-            <th>
-               Category
-            </th>
-            <th>
-                shelf
-            </th>
-            <th>
-               Count
-            </th>
-            <th>
-                Description
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.product)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Orderdate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Shelf)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Count)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-               
-            </tr>
-        }
-    </tbody>
-</table>
+
 

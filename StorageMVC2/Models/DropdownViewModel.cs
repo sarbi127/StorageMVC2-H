@@ -10,9 +10,11 @@ namespace StorageMVC2.Models
     public class DropdownViewModel 
     {
         [Display(Name = "choose product")]
-        public int? SelectedProductName { get; set; }
+        public string SelectedProductName { get; set; }
 
         public IEnumerable<Product> product { get; set; }
+
+        public IEnumerable<SelectListItem> SelectList { get; set; }
     }
 }
 

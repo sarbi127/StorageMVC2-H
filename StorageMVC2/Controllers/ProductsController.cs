@@ -59,31 +59,31 @@ namespace StorageMVC2.Controllers
             model.product = _productRepository.AllProduct;
             model.SelectedProductName = null;
 
-            SelectList lstobj = null;
             var list = _productRepository.AllProduct.Select(P => new SelectListItem
             {
                 Value = P.Name,
                 Text = P.Name,
             });
 
-            lstobj = new SelectList(list, "Value", "Text");
-            this.ViewBag.Product = lstobj;
+            model.SelectList = list;
             return this.View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Dropdown(string name)
+        public async Task<IActionResult> Dropdown(DropdownViewModel model)
         {
-            //DropdownViewModel model = new DropdownViewModel();
+            IEnumerable<ProductViewModel> productNew = await _context.Product
+               .Where(p => p.Name.StartsWith(model.SelectedProductName))
+               .Select(a => new ProductViewModel
+               {
+                   Name = a.Name,
+                   Price = a.Price,
+                   Count = a.Count,
+                   InventoryValue = a.Count * a.Price
 
-            //model.product = _productRepository.AllProduct;
-            //model.SelectedProductName = name;
-            var model = await _context.Product.ToListAsync();
-            if (!string.IsNullOrEmpty(name))
-            {
-                model = model.Where(p => p.Category.Contains(name)).ToList();
-            }
-            return View(model);
+               }).ToListAsync();
+
+            return View(nameof(List), productNew);
         }
 
         // GET: Products/Details/5
